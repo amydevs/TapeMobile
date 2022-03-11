@@ -1,0 +1,6 @@
+{
+	"appId": "com.Aeriform.Tape",
+	"appName": "Tape",
+	"webDir": "app",
+	"bundledWebRuntime": false
+}
