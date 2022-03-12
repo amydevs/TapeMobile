@@ -43,7 +43,7 @@ window.addEventListener('load', function () {
     mutobs.observe(document.querySelector("#main"), {childList:true})
     const errFunc = window.onerror.bind({});
     window.onerror = function myErrorHandler(error, url, lineNumber) {
-        if (error.toString().includes("'length'") || error.toString().includes("'e.path'")) {}
+        if (error.toString().includes("'length'")) {}
         else {errFunc(error, url, lineNumber)}
         
     };
