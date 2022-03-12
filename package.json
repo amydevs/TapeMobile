@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^3.4.3",
+    "copy-webpack-plugin": "^10.2.4",
     "html-webpack-plugin": "^5.5.0",
     "jsdom": "^19.0.0",
     "webpack": "^5.70.0",
