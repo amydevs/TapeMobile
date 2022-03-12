@@ -51,11 +51,11 @@ namespace TapeData {
     }
 
     try {
+        
         const file = (await Filesystem.readFile(tapesync_save_options)).data;
         if (window.localStorage.tapedata !== file)
         {
-            window.localStorage.tapedata = file
-            window.location.href = window.location.href
+            checkValidandRead(file)
         }
         
     }
@@ -67,13 +67,13 @@ namespace TapeData {
             })
         }
         catch {}
-        await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata}, tapesync_save_options))
+        await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))
     }
 
     watchtapedata(async (newVal, oldVal) => {
         try {
             console.log("ls > fs")
-            await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata}, tapesync_save_options))
+            await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))
         }
         catch {}
     })
@@ -88,11 +88,14 @@ namespace TapeData {
             }
             else if (window.localStorage.tapedata !== fsdata) {
                 console.log("fs > ls")
-                window.localStorage.tapedata = fsdata;
-                window.location.href = window.location.href
+                checkValidandRead(fsdata)
             }
             _tapedata = window.localStorage.tapedata?.slice()
         }, 5000);
+    }
+    async function checkValidandRead(fsdata: string) {
+        try {JSON.parse(fsdata); window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
+        catch {await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))}
     }
 })();
 
