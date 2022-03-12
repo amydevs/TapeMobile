@@ -1,4 +1,19 @@
 import "../stylesheets/main.css";
+import {polyfill} from "mobile-drag-drop";
+
+// optional import of scroll behaviour
+import {scrollBehaviourDragImageTranslateOverride} from "mobile-drag-drop/scroll-behaviour";
+
+// options are optional ;)
+polyfill({
+    // use this to make use of the scroll behaviour
+    dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+});
+
+document.addEventListener("dragenter", (event)=> {
+    event.preventDefault();
+})
+window.addEventListener( 'touchmove', function() {}, {passive: false});
 
 window.addEventListener('load', function () {
     const styles = window.document.styleSheets;
@@ -26,10 +41,7 @@ window.addEventListener('load', function () {
         }
     })
     mutobs.observe(document.querySelector("#main"), {childList:true})
-})
-
-
-  
+})  
 
 declare var BrowserFS: any;
 
