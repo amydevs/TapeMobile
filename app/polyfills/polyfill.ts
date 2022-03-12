@@ -47,6 +47,8 @@ window.addEventListener('load', function () {
         else {errFunc(error, url, lineNumber)}
         
     };
+
+    styles[0].insertRule(".group > .graph { min-height: 12px !important }")
 })  
 
 declare var BrowserFS: any;
