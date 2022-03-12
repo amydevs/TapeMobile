@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const CopyPlugin = require("copy-webpack-plugin");
 
 const webpackConf = {
     context: path.resolve(__dirname, 'app'),
@@ -30,6 +29,17 @@ const webpackConf = {
             'bfsGlobal': require.resolve('browserfs'),
         }
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+        ],
+    },        
     devServer: {
         static: './dist',
         hot: true,
@@ -40,11 +50,6 @@ const webpackConf = {
         // to expose a BrowserFS global.
      
         new webpack.ProvidePlugin({ BrowserFS: 'bfsGlobal', process: 'processGlobal', Buffer: 'bufferGlobal' }),
-        new CopyPlugin({
-            patterns: [
-              { from: "stylesheets", to: "stylesheets" },
-            ],
-        }),
         {
             apply: (compiler) => {
                 compiler.hooks.afterEmit.tap('AfterEmitPlugin', (stats) => {
@@ -56,6 +61,7 @@ const webpackConf = {
                     const html = new JSDOM(fs.readFileSync('./app/app.html'), 'utf8');
                     const document = html.window.document
 
+                    document.querySelector('link[rel="stylesheet"]').remove()
 
                     for (const [i, script] of document.querySelectorAll("head > script").entries()) {
                         if (i == 0) {

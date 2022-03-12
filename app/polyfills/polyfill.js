@@ -1,3 +1,5 @@
+import "../stylesheets/main.css";
+
 BrowserFS.install(window);
   // Configures BrowserFS to use the LocalStorage file system.
 BrowserFS.configure({
