@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 const webpackConf = {
     context: path.resolve(__dirname, 'app'),
+    mode: 'development',
     entry: ['./polyfills/polyfill.js', './app.js', './helpers/context_menu.js'],
     // entry: {
     //     app: './app.js',
@@ -28,6 +29,10 @@ const webpackConf = {
             'bufferGlobal': 'browserfs/dist/shims/bufferGlobal.js',
             'bfsGlobal': require.resolve('browserfs'),
         }
+    },
+    devServer: {
+        static: './dist',
+        hot: true,
     },
     plugins: [
         // Expose BrowserFS, process, and Buffer globals.

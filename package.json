@@ -9,7 +9,8 @@
   "license": "MIT",
   "main": "app/background.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "serve": "webpack serve"
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
@@ -29,7 +30,8 @@
     "run-sequence": "^1.2.2",
     "stream-browserify": "^3.0.0",
     "typescript": "^2.2.1",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "webpack-dev-server": "^4.7.4"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.4.3",

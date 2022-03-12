@@ -9,3 +9,8 @@ BrowserFS.configure({
     }
     // Otherwise, BrowserFS is ready-to-use!
 });
+
+const styles = window.document.styleSheets;
+console.log(styles[0].cssRules)
+
+

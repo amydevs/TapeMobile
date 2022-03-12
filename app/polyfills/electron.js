@@ -3,6 +3,9 @@ module.exports = {
         app: {
             getAppPath() {
                 return '/';
+            },
+            getPath() {
+                return '/';
             }
         },
         Menu: class {
