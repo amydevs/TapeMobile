@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const webpackConf = {
     context: path.resolve(__dirname, 'app'),
     mode: 'development',
-    entry: ['./polyfills/polyfill.js', './app.js', './helpers/context_menu.js'],
+    entry: ['./polyfills/polyfill', './app.js', './helpers/context_menu.js'],
     // entry: {
     //     app: './app.js',
     //     "helpers/context_menu": './helpers/context_menu.js'
