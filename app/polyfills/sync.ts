@@ -54,6 +54,7 @@ namespace TapeData {
 
     try {
         window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
+        window.location.href = window.location.href;
     }
     catch {
         await Filesystem.mkdir({
@@ -68,6 +69,7 @@ namespace TapeData {
             if (oldVal === window.localStorage.tapedata) {}
             else {
                 window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
+                window.location.href = window.location.href;
             }
         }
         catch {}
