@@ -50,43 +50,48 @@ namespace TapeData {
         encoding: Encoding.UTF8,
     }
 
-    let oldLStapedata = window.localStorage.tapedata.slice()
-
     try {
-        window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
-        window.location.href = window.location.href;
+        const file = (await Filesystem.readFile(tapesync_save_options)).data;
+        if (window.localStorage.tapedata !== file)
+        {
+            window.localStorage.tapedata = file
+            window.location.href = window.location.href
+        }
+        
     }
     catch {
-        await Filesystem.mkdir({
-            path: "tape",
-            directory: Directory.Documents
-        })
+        try {
+            await Filesystem.mkdir({
+                path: "tape",
+                directory: Directory.Documents
+            })
+        }
+        catch {}
         await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata}, tapesync_save_options))
     }
 
     watchtapedata(async (newVal, oldVal) => {
         try {
-            if (oldVal === window.localStorage.tapedata) {}
-            else {
-                window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
-                window.location.href = window.location.href;
-            }
+            console.log("ls > fs")
+            await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata}, tapesync_save_options))
         }
         catch {}
     })
     
     let _tapedata = "";
     async function watchtapedata(e: (newVal: string, oldVal: string) => void) {
-        _tapedata = window.localStorage.tapedata
+        _tapedata = window.localStorage.tapedata?.slice()
         return setInterval(async () => {
             if (window.localStorage.tapedata !== _tapedata) {
                 await e(window.localStorage.tapedata, _tapedata)
             }
             else if (window.localStorage.tapedata !== (await Filesystem.readFile(tapesync_save_options)).data) {
-                window.localStorage.tapedata == (await Filesystem.readFile(tapesync_save_options)).data;
+                console.log("fs > ls")
+                window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
+                window.location.href = window.location.href
             }
-            _tapedata = window.localStorage.tapedata
-        }, 2000);
+            _tapedata = window.localStorage.tapedata?.slice()
+        }, 5000);
     }
 })();
 
