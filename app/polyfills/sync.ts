@@ -82,12 +82,13 @@ namespace TapeData {
     async function watchtapedata(e: (newVal: string, oldVal: string) => void) {
         _tapedata = window.localStorage.tapedata?.slice()
         return setInterval(async () => {
+            const fsdata = (await Filesystem.readFile(tapesync_save_options)).data
             if (window.localStorage.tapedata !== _tapedata) {
                 await e(window.localStorage.tapedata, _tapedata)
             }
-            else if (window.localStorage.tapedata !== (await Filesystem.readFile(tapesync_save_options)).data) {
+            else if (window.localStorage.tapedata !== fsdata) {
                 console.log("fs > ls")
-                window.localStorage.tapedata = (await Filesystem.readFile(tapesync_save_options)).data;
+                window.localStorage.tapedata = fsdata;
                 window.location.href = window.location.href
             }
             _tapedata = window.localStorage.tapedata?.slice()
