@@ -10,7 +10,8 @@
   "main": "app/background.js",
   "scripts": {
     "build": "webpack",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "extract": "node ./input/extract.js"
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@capacitor/cli": "^3.4.3",
     "@types/jquery": "^3.5.14",
+    "asar": "^3.1.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
