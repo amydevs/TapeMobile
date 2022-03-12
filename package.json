@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
-    "@capacitor/cli": "^3.4.3",
     "@capacitor/core": "^3.4.3",
     "detect-csv": "^1.1.0",
     "fs-jetpack": "^0.10.2",
@@ -27,6 +26,7 @@
     "typescript": "^2.2.1"
   },
   "devDependencies": {
-    "jsdom": "^19.0.0"
+    "jsdom": "^19.0.0",
+    "@capacitor/cli": "^3.4.3"
   }
 }
