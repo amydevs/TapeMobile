@@ -55,7 +55,7 @@ namespace TapeData {
         const file = (await Filesystem.readFile(tapesync_save_options)).data;
         if (window.localStorage.tapedata !== file)
         {
-            checkValidandRead(file)
+            await checkValidandRead(file)
         }
         
     }
