@@ -2,3 +2,4 @@ app/*
 dist/
 !app/polyfills
 node_modules/
+input/app.*

@@ -47,6 +47,10 @@ window.addEventListener('load', function () {
         else {errFunc(error, url, lineNumber)}
         
     };
+
+    styles[0].insertRule(".group > .graph { min-height: 12px !important; position: relative; }")
+    styles[0].insertRule('.group > .graph::after { content:""; display: block; position: absolute; left: 40%; right: 40%; bottom: 5px; height: 1px; background: rgb(246, 245, 240); transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
+    styles[0].insertRule('.group > .graph:hover::after { opacity: 0 }')
 })  
 
 declare var BrowserFS: any;
