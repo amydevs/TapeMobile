@@ -13,6 +13,7 @@ const webpackConf = {
         filename: "app.js"
     },
     resolve: {
+        extensions: [".ts", ".tsx", ".js"],
         fallback: {
             "util": require.resolve("util"),
             "assert": require.resolve("assert"),
@@ -38,8 +39,15 @@ const webpackConf = {
                     'css-loader'
                 ]
             },
+            {
+                test: /\.ts$/,
+                exclude: '/node_modules/',
+                use: 'ts-loader'
+            }
+
         ],
     },        
+    devtool: "inline-source-map",
     devServer: {
         static: './dist',
         hot: true,

@@ -13,6 +13,8 @@ BrowserFS.configure({
 });
 
 const styles = window.document.styleSheets;
-console.log(styles[0].cssRules)
+for (const style of styles) {
+    style.cssRules
+}
 
 
