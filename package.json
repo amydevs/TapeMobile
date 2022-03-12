@@ -9,7 +9,6 @@
   "license": "MIT",
   "main": "app/background.js",
   "scripts": {
-    "install-polyfills": "node install.js",
     "build": "webpack"
   },
   "dependencies": {
