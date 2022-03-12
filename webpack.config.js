@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 const webpackConf = {
     context: path.resolve(__dirname, 'app'),
-    mode: 'development',
+    mode: process.env.NODE_ENV || 'development',
     entry: [
         './polyfills/polyfill', 
         './app.js',
@@ -52,7 +52,7 @@ const webpackConf = {
 
         ],
     },    
-    watch: true,    
+    watch: process.env.NODE_ENV === "development" ? true : false,    
     devtool: "inline-source-map",
     devServer: {
         static: './dist',
