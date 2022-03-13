@@ -51,17 +51,27 @@ export default (() => {
             button.style.display = "flex";
             button.style.justifyContent = "center";
             button.style.alignItems = "center";
-            button.style.flex = "1 1 0px";
+            button.style.margin = "6px 4px"
+            // button.style.flex = "1 1 0px";
             return button;
         }
         styles[0].insertRule('.group > .graph:hover::after { opacity: 0 }')
         const toolbar = document.createElement("div")
+        toolbar.style.flexWrap = "wrap"
         toolbar.style.marginTop = "10px"
-        toolbar.classList.add("graph")
+        toolbar.classList.add("status")
         toolbar.classList.add("segmenttoolbar")
-        styles[0].insertRule('.segmenttoolbar { display: flex !important }');
-        styles[0].insertRule('.segmenttoolbar > div { opacity: 0; transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
-        styles[0].insertRule('.segmenttoolbar:hover > div { opacity: 1 }')
+        toolbar.style.justifyContent = "space-around"
+        toolbar.style.height = "auto"
+        toolbar.style.padding = "4px"
+        styles[0].insertRule('.segmenttoolbar > div { opacity: 0.4; transition: opacity 0.4s; }');
+        styles[0].insertRule('.segmenttoolbar > div:hover { opacity: 1 }');
+
+        // toolbar.classList.add("graph")
+        // toolbar.classList.add("segmenttoolbar")
+        // styles[0].insertRule('.segmenttoolbar { display: flex !important }');
+        // styles[0].insertRule('.segmenttoolbar > div { display: none; opacity: 0; transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
+        // styles[0].insertRule('.segmenttoolbar:hover > div { opacity: 1 }')
         // const toolbar = document.createElement("div");
         // toolbar.classList.add("segment")
         // toolbar.classList.add("segmenttoolbar")
