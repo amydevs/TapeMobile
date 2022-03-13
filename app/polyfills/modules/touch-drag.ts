@@ -14,4 +14,12 @@ export default (() =>{
         event.preventDefault();
     })
     window.addEventListener( 'touchmove', function() {}, {passive: false});
+
+    if (!("path" in DragEvent.prototype)) {
+        Reflect.defineProperty(DragEvent.prototype, "path", {
+            get: function() {
+                return (this as DragEvent).composedPath()
+            }
+        })
+    }
 })
