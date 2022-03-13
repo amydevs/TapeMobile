@@ -9,6 +9,6 @@ import enableSync from './modules/sync'
     enableTouchDrag();
     await enableSync();
     enableStyles();
-})
+})()
 
 

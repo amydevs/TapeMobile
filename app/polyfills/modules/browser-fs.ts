@@ -7,6 +7,15 @@ declare global {
 }
 
 export default (() => {
+    Object.defineProperty(File.prototype, "path", {
+        get: function() {
+            const file = this as File;
+            file.text().then(e => {
+                fs.writeFileSync(`/${file.name}`, e)
+            })
+            return file.name
+        }
+    })
     BrowserFS.install(window);
   // Configures BrowserFS to use the LocalStorage file system.
     BrowserFS.configure({
@@ -18,14 +27,4 @@ export default (() => {
         }
         // Otherwise, BrowserFS is ready-to-use!
     });
-
-    Object.defineProperty(File.prototype, "path", {
-        get: function() {
-            const file = this as File;
-            file.text().then(e => {
-                fs.writeFileSync(`/${file.name}`, e)
-            })
-            return file.name
-        }
-    })
 })
