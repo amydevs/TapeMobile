@@ -6,8 +6,6 @@ const webpackConf = {
     mode: process.env.NODE_ENV || 'development',
     entry: [
         './polyfills/polyfill',
-        './polyfills/sync',
-        './polyfills/app',
         './app.js',
         './helpers/context_menu.js',
     ],

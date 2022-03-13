@@ -1,23 +1,5 @@
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
-function getTapeDataFromLS(): TapeData.Collection | undefined {
-    try {
-        return JSON.parse(window.localStorage.tapedata, (i, e) => {
-            switch (e) {
-                case 'true':
-                    return true
-                case 'false':
-                    return false
-                default:
-                    return e
-            }
-        }) as TapeData.Collection
-    }
-    catch(e: any) {
-        return undefined
-    }
-}
-
 declare global {
     interface Window {
         localStorage: Storage | {
@@ -25,7 +7,7 @@ declare global {
         }
     }
 }
-namespace TapeData {
+export namespace TapeData {
     export declare interface Collection {
         [i: string]: Entry
     }
@@ -43,7 +25,27 @@ namespace TapeData {
     export declare type ItemState = "" | "priority" | "working" | "submitted" | "approved" | "done"
 }
 
-(async () => {
+
+export function getTapeDataFromLS(): TapeData.Collection | undefined {
+    try {
+        return JSON.parse(window.localStorage.tapedata, (i, e) => {
+            switch (e) {
+                case 'true':
+                    return true
+                case 'false':
+                    return false
+                default:
+                    return e
+            }
+        }) as TapeData.Collection
+    }
+    catch(e: any) {
+        return undefined
+    }
+}
+
+
+export default (async () => {
     const tapesync_save_options = {
         path: "tape/tapesync_save.txt",
         directory: Directory.Documents,
@@ -97,5 +99,4 @@ namespace TapeData {
         try {window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
         catch {await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))}
     }
-})();
-
+});
