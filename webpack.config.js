@@ -5,10 +5,11 @@ const webpackConf = {
     context: path.resolve(__dirname, 'app'),
     mode: process.env.NODE_ENV || 'development',
     entry: [
-        './polyfills/polyfill', 
+        './polyfills/polyfill',
+        './polyfills/sync',
+        './polyfills/app',
         './app.js',
         './helpers/context_menu.js',
-        './polyfills/sync'
     ],
     // entry: {
     //     app: './app.js',
