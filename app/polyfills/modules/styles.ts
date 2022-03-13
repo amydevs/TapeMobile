@@ -1,4 +1,6 @@
+import "../../stylesheets/main.css";
 import $ from "jquery";
+
 export default (() => {
     window.addEventListener('load', function () {
         // polyfill all hovers to also work with a ".hover" utility class
