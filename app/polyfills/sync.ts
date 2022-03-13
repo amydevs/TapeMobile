@@ -45,7 +45,7 @@ namespace TapeData {
 
 (async () => {
     const tapesync_save_options = {
-        path: "tape/tapesync_save.json",
+        path: "tape/tapesync_save.txt",
         directory: Directory.Documents,
         encoding: Encoding.UTF8,
     }
