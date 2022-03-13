@@ -48,6 +48,7 @@ export default (() => {
             const button = document.createElement("div");
             button.innerText = text;
             button.onclick = onclick;
+            button.style.flex = "1 1 0px";
             return button;
         }
         const toolbar = document.createElement("div")
