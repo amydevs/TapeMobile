@@ -7,9 +7,9 @@ import enableAppListeners from './modules/app'
 (async () => {
     enableBrowserFS();
     enableAppListeners();
+    enableStyles();
     enableTouchDrag();
     await enableSync();
-    enableStyles();
 })()
 
 
