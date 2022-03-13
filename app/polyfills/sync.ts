@@ -52,7 +52,7 @@ namespace TapeData {
 
     try {
         
-        const file = (await Filesystem.readFile(tapesync_save_options)).data;
+        const file = JSON.stringify(JSON.parse((await Filesystem.readFile(tapesync_save_options)).data));
         if (window.localStorage.tapedata !== file)
         {
             await checkValidandRead(file)
@@ -67,13 +67,13 @@ namespace TapeData {
             })
         }
         catch {}
-        await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))
+        await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))
     }
 
     watchtapedata(async (newVal, oldVal) => {
         try {
             console.log("ls > fs")
-            await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))
+            await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))
         }
         catch {}
     })
@@ -82,7 +82,7 @@ namespace TapeData {
     async function watchtapedata(e: (newVal: string, oldVal: string) => void) {
         _tapedata = window.localStorage.tapedata?.slice()
         return setInterval(async () => {
-            const fsdata = (await Filesystem.readFile(tapesync_save_options)).data
+            const fsdata = JSON.stringify(JSON.parse((await Filesystem.readFile(tapesync_save_options)).data))
             if (window.localStorage.tapedata !== _tapedata) {
                 await e(window.localStorage.tapedata, _tapedata)
             }
@@ -95,7 +95,7 @@ namespace TapeData {
     }
     async function checkValidandRead(fsdata: string) {
         try {JSON.parse(fsdata); window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
-        catch {await Filesystem.writeFile(Object.assign({data: window.localStorage.tapedata || "{}"}, tapesync_save_options))}
+        catch {await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))}
     }
 })();
 
