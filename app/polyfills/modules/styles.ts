@@ -40,22 +40,33 @@ export default (() => {
         styles[0].insertRule(".item > #label { border-right: none !important }");
     
         // make graph bigger for touch devices
-        styles[0].insertRule(".group > .graph { min-height: 12px !important; position: relative; }")
-        styles[0].insertRule('.group > .graph::after { content:""; display: block; position: absolute; left: 40%; right: 40%; bottom: 5px; height: 1px; background: rgb(246, 245, 240); transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
-        styles[0].insertRule('.group > .graph:hover::after { opacity: 0 }')
+        styles[0].insertRule(".graph { min-height: 12px !important; position: relative; }")
+        styles[0].insertRule('.graph::after { content:""; display: block; position: absolute; left: 40%; right: 40%; bottom: 5px; height: 1px; background: rgb(246, 245, 240); transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
+        styles[0].insertRule('.graph:hover::after { opacity: 0 }')
         
         function createButton(text: string, onclick: (ev: MouseEvent)=>any) {
             const button = document.createElement("div");
             button.innerText = text;
             button.onclick = onclick;
+            button.style.display = "flex";
+            button.style.justifyContent = "center";
+            button.style.alignItems = "center";
             button.style.flex = "1 1 0px";
             return button;
         }
+        styles[0].insertRule('.group > .graph:hover::after { opacity: 0 }')
         const toolbar = document.createElement("div")
         toolbar.style.marginTop = "10px"
-        toolbar.style.justifyContent = "space-around"
-        toolbar.style.textAlign = "center"
-        toolbar.classList.add("status")
+        toolbar.classList.add("graph")
+        toolbar.classList.add("segmenttoolbar")
+        styles[0].insertRule('.segmenttoolbar { display: flex !important }');
+        styles[0].insertRule('.segmenttoolbar > div { opacity: 0; transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
+        styles[0].insertRule('.segmenttoolbar:hover > div { opacity: 1 }')
+        // const toolbar = document.createElement("div");
+        // toolbar.classList.add("segment")
+        // toolbar.classList.add("segmenttoolbar")
+        // toolbar.appendChild(toolbar)
+
         toolbar.appendChild(createButton("Search", (e) => {
             document.dispatchEvent(new KeyboardEvent('keydown', {
                 keyCode: 70,
@@ -71,6 +82,13 @@ export default (() => {
         toolbar.appendChild(createButton("Toggle Secret", (e) => {
             document.dispatchEvent(new KeyboardEvent('keydown', {
                 keyCode: 80,
+                ctrlKey: true,
+                shiftKey: true
+            }));
+        }))
+        toolbar.appendChild(createButton("Reset Theme", (e) => {
+            document.dispatchEvent(new KeyboardEvent('keydown', {
+                keyCode: 84,
                 ctrlKey: true,
                 shiftKey: true
             }));
