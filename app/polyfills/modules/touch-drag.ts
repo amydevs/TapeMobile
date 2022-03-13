@@ -15,8 +15,8 @@ export default (() =>{
     })
     window.addEventListener( 'touchmove', function() {}, {passive: false});
 
-    if (!("path" in DragEvent.prototype)) {
-        Reflect.defineProperty(DragEvent.prototype, "path", {
+    if (!("path" in Event.prototype)) {
+        Reflect.defineProperty(Event.prototype, "path", {
             get: function() {
                 return (this as DragEvent).composedPath()
             }

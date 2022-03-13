@@ -32,7 +32,7 @@ export default (() => {
         // fix for drag over
         const errFunc = window.onerror.bind({});
         window.onerror = function myErrorHandler(error, url, lineNumber) {
-            if (error.toString().includes("'length'")) {}
+            if (error.toString().includes("length")) {}
             else {errFunc(error, url, lineNumber)}
         };
     
