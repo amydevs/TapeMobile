@@ -54,10 +54,10 @@ export default (async () => {
 
     try {
         
-        const file = JSON.stringify(JSON.parse((await Filesystem.readFile(tapesync_save_options)).data));
+        const file = await checkValid((await Filesystem.readFile(tapesync_save_options)).data);
         if (window.localStorage.tapedata !== file)
         {
-            await checkValidandRead(file)
+            await loadToLS(file)
         }
         
     }
@@ -84,19 +84,27 @@ export default (async () => {
     async function watchtapedata(e: (newVal: string, oldVal: string) => void) {
         _tapedata = window.localStorage.tapedata?.slice()
         return setInterval(async () => {
-            const fsdata = JSON.stringify(JSON.parse((await Filesystem.readFile(tapesync_save_options)).data))
+            const fsdata = await checkValid((await Filesystem.readFile(tapesync_save_options)).data)
             if (window.localStorage.tapedata !== _tapedata) {
                 await e(window.localStorage.tapedata, _tapedata)
             }
             else if (window.localStorage.tapedata !== fsdata) {
                 console.log("fs > ls")
-                checkValidandRead(fsdata)
+                loadToLS(fsdata)
             }
             _tapedata = window.localStorage.tapedata?.slice()
         }, 5000);
     }
-    async function checkValidandRead(fsdata: string) {
-        try {window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
-        catch {await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))}
+    async function checkValid(fsdata: string) {
+        try {
+            return JSON.stringify(JSON.parse(fsdata))
+        }
+        catch {
+            await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options));
+            return window.localStorage.tapedata;
+        }
+    }
+    function loadToLS(fsdata: string) {
+        window.localStorage.tapedata = fsdata; window.location.href = window.location.href;
     }
 });
