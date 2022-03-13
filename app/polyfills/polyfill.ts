@@ -59,34 +59,36 @@ window.addEventListener('load', function () {
     styles[0].insertRule('.group > .graph::after { content:""; display: block; position: absolute; left: 40%; right: 40%; bottom: 5px; height: 1px; background: rgb(246, 245, 240); transition-property: opacity, visibility; transition-duration: 0.4s, 0.3s; transition-timing-function: ease, ease; transition-delay: 0.2s; }')
     styles[0].insertRule('.group > .graph:hover::after { opacity: 0 }')
     
-    
+    function createButton(text: string, onclick: (ev: MouseEvent)=>any) {
+        const button = document.createElement("div");
+        button.innerText = text;
+        button.onclick = onclick;
+        return button;
+    }
     const toolbar = document.createElement("div")
     toolbar.style.marginTop = "10px"
     toolbar.style.justifyContent = "space-around"
     toolbar.style.textAlign = "center"
     toolbar.classList.add("status")
-
-    const searchbuttton = document.createElement("div")
-    searchbuttton.innerText = "Search"
-    searchbuttton.onclick = (e) => {
+    toolbar.appendChild(createButton("Search", (e) => {
         document.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'f',
             keyCode: 70,
             ctrlKey: true,
         }));
-    }
-    toolbar.appendChild(searchbuttton)
-
-    const hidebutton = document.createElement("div")
-    hidebutton.innerText = "Hide All"
-    hidebutton.onclick = (e) => {
+    }))
+    toolbar.appendChild(createButton("Go To", (e) => {
         document.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'f',
-            keyCode: 70,
+            keyCode: 71,
             ctrlKey: true,
         }));
-    }
-    toolbar.appendChild(hidebutton)
+    }))
+    toolbar.appendChild(createButton("Toggle Secret", (e) => {
+        document.dispatchEvent(new KeyboardEvent('keydown', {
+            keyCode: 80,
+            ctrlKey: true,
+            shiftKey: true
+        }));
+    }))
     
     document.querySelector("header > .group").appendChild(toolbar)
 })  
