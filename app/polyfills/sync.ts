@@ -94,7 +94,7 @@ namespace TapeData {
         }, 5000);
     }
     async function checkValidandRead(fsdata: string) {
-        try {JSON.parse(fsdata); window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
+        try {window.localStorage.tapedata = fsdata; window.location.href = window.location.href;}
         catch {await Filesystem.writeFile(Object.assign({data: JSON.stringify(JSON.parse(window.localStorage.tapedata), null, "\t") || "{}"}, tapesync_save_options))}
     }
 })();
