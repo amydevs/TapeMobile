@@ -7,7 +7,7 @@ export default (() =>{
     polyfill({
         // use this to make use of the scroll behaviour
         dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride,
-        iterationInterval: 50,
+        iterationInterval: 20,
     });
 
     document.addEventListener("dragenter", (event)=> {
