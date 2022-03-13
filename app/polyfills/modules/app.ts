@@ -10,8 +10,13 @@ export default (() => {
             const dataTransfer = new DataTransfer();
             let filename = "file"
             try {
-                new DOMParser().parseFromString(file, 'text/xml');
-                filename += ".svg"
+                if (new DOMParser().parseFromString(file, 'text/xml').documentElement.nodeName.toLowerCase() === "svg") {
+                    filename += ".svg"
+                }
+                else {
+                    throw new Error("txt")
+                }
+                
             }
             catch {
                 filename += ".txt"
