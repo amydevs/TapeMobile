@@ -70,7 +70,9 @@ class CustomPlugin {
             });
         });
         compiler.hooks.afterEmit.tap('AfterEmitPlugin', (stats) => {
-            console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
+            if (process.env.NODE_PWA !== "true") {
+                console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
+            }
         });
     }
 }
