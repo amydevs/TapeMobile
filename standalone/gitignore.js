@@ -16,7 +16,7 @@ json["scripts"]["standalone:build"] = string;
 fs.writeFileSync("./package.json", JSON.stringify(json, null, 2))
 
 function readGitIgnore(e) {
-    const gitignores = fs.readFileSync(path.join(...e)).toString().split("\n").filter(x => 
+    const gitignores = fs.readFileSync(path.join(...e)).toString().replaceAll("\r", "").split("\n").filter(x => 
         !x.includes("node_modules") && 
         x.length !== 0 &&
         !x.startsWith("#")
