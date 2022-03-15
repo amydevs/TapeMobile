@@ -65,11 +65,15 @@ const webpackConf = {
      
         new webpack.ProvidePlugin({ BrowserFS: 'bfsGlobal', process: 'processGlobal', Buffer: 'bufferGlobal' }),
         new (require("./plugins/custom").CustomPlugin)(),
-        new WorkboxWebpackPlugin.InjectManifest({
-            swSrc: path.join(__dirname, "app", 'polyfills', 'sw.js'),
-            swDest: "sw.js",
-            maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
-        })
+        ...(process.env.NODE_ENV === "development" ? [] : [
+            new WorkboxWebpackPlugin.InjectManifest({
+                swSrc: path.join(__dirname, "plugins", 'workbox', 'sw.js'),
+                swDest: "sw.js",
+                maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
+            })
+        ]),
+
+        
         // new WorkboxWebpackPlugin.GenerateSW({
         //     swDest: "sw.js",
         //     maximumFileSizeToCacheInBytes: 50 * 1024 * 1024

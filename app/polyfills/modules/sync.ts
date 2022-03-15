@@ -6,7 +6,7 @@ export default (async () => {
         directory: Directory.Documents,
         encoding: Encoding.UTF8,
     }
-
+ 
     try {
         
         const file = await checkValid((await Filesystem.readFile(tapesync_save_options)).data);
