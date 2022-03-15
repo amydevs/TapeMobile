@@ -86,6 +86,10 @@ const webpackConf = {
                         scrp.src = src
                         _headelm.prepend(scrp)
                     }
+                    const pwamanifest = document.createElement("link");
+                    pwamanifest.rel = "manifest";
+                    pwamanifest.href = "manifest.json"
+                    _headelm.append(pwamanifest);
                     
                     fs.writeFileSync('./dist/index.html', html.serialize())
                     console.log(require("child_process").execSync("npm run sync").toString("utf-8"));

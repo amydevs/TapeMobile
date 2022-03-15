@@ -3,7 +3,7 @@
     "short_name": "Tape",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/"
 }
