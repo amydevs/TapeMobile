@@ -9,10 +9,11 @@ ignores = ignores.concat(readGitIgnore(["android", ".gitignore"]));
 for (const [i, ignore] of ignores.entries()) {
     ignores[i] = `"${ignore}"`
 }
-const string = `caxa -n -i \"./\" -o \"standalone/dist/tapemobileinstaller\" --exclude ${ignores.join(" ")} --no-dedupe -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/standalone/index.js\"`;
 
 const json = JSON.parse(fs.readFileSync("./package.json").toString());
-json["scripts"]["standalone:build"] = string;
+json["scripts"]["standalone:build:linux"] = stringFromArray(ignores, "");
+json["scripts"]["standalone:build:mac"] = stringFromArray(ignores, ".App");
+json["scripts"]["standalone:build:win"] = stringFromArray(ignores, ".exe");
 fs.writeFileSync("./package.json", JSON.stringify(json, null, 2))
 
 function readGitIgnore(e) {
@@ -39,4 +40,9 @@ function readGitIgnore(e) {
         gitignores[i] = mutgitignore;
     }
     return gitignores
+}
+
+function stringFromArray(arr, extension) {
+    const string = `caxa -n -i \"./\" -o \"standalone/dist/tapemobileinstaller${extension}\" --exclude ${arr.join(" ")} --no-dedupe -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/standalone/index.js\"`;
+    return string;
 }
