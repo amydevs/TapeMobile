@@ -7,7 +7,7 @@ module.exports = (() => {
     const appoutputpath = path.join(__dirname, '../', 'app')
     const baseinputpath = path.join(process.cwd(), 'input')
     let asarpath = path.join(baseinputpath, 'app.asar')
-    const _tmpasarpth = path.join(process.env.HOME, "AppData", String.raw`\Local\Programs\Tape\resources\app.asar`)
+    const _tmpasarpth = path.join(require('os').homedir(), "AppData", String.raw`\Local\Programs\Tape\resources\app.asar`)
     if (fs.existsSync(_tmpasarpth)) {
         asarpath = _tmpasarpth
     }
