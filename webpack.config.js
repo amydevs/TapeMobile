@@ -56,7 +56,7 @@ const webpackConf = {
     devtool: "inline-source-map",
     devServer: {
         static: './dist',
-        hot: true,
+        hot: process.env.NODE_ENV === "development" ? true : false,
     },
     plugins: [
         // Expose BrowserFS, process, and Buffer globals.
