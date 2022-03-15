@@ -11,8 +11,8 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "watch": "cross-env NODE_ENV=development webpack",
-    "serve": "cross-env NODE_ENV=production webpack serve",
-    "serve:prod": "webpack serve",
+    "serve": "cross-env NODE_ENV=development webpack serve",
+    "serve:prod": "cross-env NODE_ENV=production webpack serve",
     "sync": "cap sync",
     "extract": "node ./input/extract.js"
   },
