@@ -11,10 +11,15 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack",
     "watch": "cross-env NODE_ENV=development webpack",
+
     "serve": "cross-env NODE_ENV=development webpack serve",
     "serve:prod": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack serve",
+
     "sync": "cap sync",
-    "extract": "node ./input/extract.js"
+    "extract": "node ./input/extract.js",
+
+    "standalone:serve": "node build.js",
+    "standalone:build": "node build.js"
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
