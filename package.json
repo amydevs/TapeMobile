@@ -11,15 +11,13 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack",
     "watch": "cross-env NODE_ENV=development webpack",
-
     "serve": "cross-env NODE_ENV=development webpack serve",
     "serve:prod": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack serve",
-
     "sync": "cap sync",
     "extract": "node ./input/extract.js",
-
-    "standalone:serve": "node build.js",
-    "standalone:build": "node build.js"
+    "standalone:serve": "node standalone",
+    "standalone:build": "caxa --identifier \"tape-mobile-installer-files\" -i \"./\" -o \"standalone/dist/tapemobileinstaller\" --exclude \"./node_modules/.bin\" \"app/*\" \"!app/polyfills\" \"dist/*\" \"!dist/manifest.json\" \"input/app.*\" \"standalone/dist/*\" --no-dedupe -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/standalone/index.js\"",
+    "standalone:gitignore": "node ./standalone/gitignore.js"
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
@@ -49,6 +47,7 @@
     "@types/jquery": "^3.5.14",
     "@types/jsdom": "^16.2.14",
     "asar": "^3.1.0",
+    "caxa": "^2.1.0",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
@@ -61,5 +60,11 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4",
     "workbox-webpack-plugin": "^6.5.1"
+  },
+  "pkg": {
+    "scripts": "standalone/**/*.js",
+    "options": [
+      "experimental-modules"
+    ]
   }
 }

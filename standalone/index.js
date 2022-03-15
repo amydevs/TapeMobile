@@ -1,6 +1,6 @@
-require("./input/extract.js")
+require("../input/extract.js")
 const webpack = require('webpack');
-const webpackcfg = require('./webpack.config');
+const webpackcfg = require('../webpack.config');
 const WebpackDevServer = require('webpack-dev-server');
 
 (async () => {
