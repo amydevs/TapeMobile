@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
 const webpackConf = {
     context: path.resolve(__dirname, 'app'),
@@ -95,7 +96,13 @@ const webpackConf = {
                     console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
                 });
             }
-        }
+        },
+        new WorkboxWebpackPlugin.GenerateSW({
+            swDest: "sw.js",
+            maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
+            clientsClaim: true,
+            skipWaiting: true,
+        })
     ]
 }
 module.exports = webpackConf;

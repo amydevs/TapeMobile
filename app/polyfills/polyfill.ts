@@ -17,6 +17,14 @@ import { Capacitor } from '@capacitor/core';
     if (Capacitor.getPlatform() !== "web") {
         await enableSync();
     }
+    else {
+        window.addEventListener("load", async () => {
+            if ("serviceWorker" in navigator) {
+                const sw = await navigator.serviceWorker.register("/sw.js");
+                console.log("registered service worker");
+            }
+        });
+    }
 })()
 
 
