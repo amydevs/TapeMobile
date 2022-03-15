@@ -20,8 +20,13 @@ import { Capacitor } from '@capacitor/core';
     else {
         window.addEventListener("load", async () => {
             if ("serviceWorker" in navigator) {
-                const sw = await navigator.serviceWorker.register("/sw.js");
-                console.log("registered service worker");
+                try {
+                    const sw = await navigator.serviceWorker.register("/sw.js");
+                    console.log("registered service worker");
+                }
+                catch(e) {
+                    console.warn("failed to register service worker", e);
+                }
             }
         });
     }
