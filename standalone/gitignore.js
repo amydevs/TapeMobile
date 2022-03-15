@@ -9,7 +9,7 @@ ignores = ignores.concat(readGitIgnore(["android", ".gitignore"]));
 for (const [i, ignore] of ignores.entries()) {
     ignores[i] = `"${ignore}"`
 }
-const string = `caxa -i \"./\" -o \"standalone/dist/tapemobileinstaller\" --exclude ${ignores.join(" ")} --no-dedupe -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/standalone/index.js\"`;
+const string = `caxa -n -i \"./\" -o \"standalone/dist/tapemobileinstaller\" --exclude ${ignores.join(" ")} --no-dedupe -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/standalone/index.js\"`;
 
 const json = JSON.parse(fs.readFileSync("./package.json").toString());
 json["scripts"]["standalone:build"] = string;
