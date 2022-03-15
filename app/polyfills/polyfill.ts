@@ -5,12 +5,16 @@ import enableSync from './modules/sync'
 import enableAppListeners from './modules/app'
 // import "./modules/drag-drop-touch"
 
+import { Capacitor } from '@capacitor/core';
+
 (async () => {
     enableBrowserFS();
-    enableAppListeners();
     enableTouchDrag();
+    enableAppListeners();
     enableStyles();
-    await enableSync();
+    if (Capacitor.getPlatform() !== "web") {
+        await enableSync();
+    }
 })()
 
 
