@@ -69,9 +69,13 @@ class CustomPlugin {
                 );
             });
         });
-        compiler.hooks.afterEmit.tap('AfterEmitPlugin', (stats) => {
+        compiler.hooks.afterEmit.tap('AfterEmitPlugin', async (stats) => {
             if (process.env.NODE_PWA !== "true") {
-                console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
+                const originalarg = `${process.argv[2]}`;
+                process.argv[2] = "sync";
+                await require("@capacitor/cli").run();
+                process.argv[2] = originalarg;
+                // console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
             }
         });
     }
