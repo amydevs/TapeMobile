@@ -28,13 +28,6 @@ export default (() => {
             // }
         })
         mutobs.observe(document.querySelector("#main"), {childList:true})
-        
-        // fix for drag over
-        const errFunc = window.onerror.bind({});
-        window.onerror = function myErrorHandler(error, url, lineNumber) {
-            if (error.toString().includes("length")) {}
-            else {errFunc(error, url, lineNumber)}
-        };
     
         // remove border on label for items
         styles[0].insertRule(".item > #label { border-right: none !important }");
