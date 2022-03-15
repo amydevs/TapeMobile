@@ -9,10 +9,10 @@
   "license": "MIT",
   "main": "app/background.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack",
     "watch": "cross-env NODE_ENV=development webpack",
     "serve": "cross-env NODE_ENV=development webpack serve",
-    "serve:prod": "cross-env NODE_ENV=production webpack serve",
+    "serve:prod": "cross-env NODE_ENV=production cross-env NODE_PWA=true webpack serve",
     "sync": "cap sync",
     "extract": "node ./input/extract.js"
   },

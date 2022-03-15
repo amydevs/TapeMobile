@@ -65,7 +65,7 @@ const webpackConf = {
      
         new webpack.ProvidePlugin({ BrowserFS: 'bfsGlobal', process: 'processGlobal', Buffer: 'bufferGlobal' }),
         new (require("./plugins/custom").CustomPlugin)(),
-        ...(process.env.NODE_ENV === "development" ? [] : [
+        ...(process.env.NODE_PWA !== "true" ? [] : [
             new WorkboxWebpackPlugin.InjectManifest({
                 swSrc: path.join(__dirname, "plugins", 'workbox', 'sw.js'),
                 swDest: "sw.js",
