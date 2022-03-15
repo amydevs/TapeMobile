@@ -66,7 +66,7 @@ const webpackConf = {
         {
             apply: (compiler) => {
                 compiler.hooks.afterEmit.tap('AfterEmitPlugin', (stats) => {
-                    
+                    const scriptSrcs = ["app.js"];
                     const jsdom = require("jsdom");
                     const { JSDOM } = jsdom;
 
@@ -77,14 +77,18 @@ const webpackConf = {
                     document.querySelector('link[rel="stylesheet"]').remove()
 
                     for (const [i, script] of document.querySelectorAll("head > script").entries()) {
-                        if (i == 0) {
-                            script.src = "app.js";
-                        }
-                        else { 
-                            script.remove();
-                        }
+                        script.remove();
                     }
+
+                    const _headelm = document.querySelector('head')
+                    for (const src of scriptSrcs.reverse()) {
+                        const scrp = document.createElement("script")
+                        scrp.src = src
+                        _headelm.prepend(scrp)
+                    }
+                    
                     fs.writeFileSync('./dist/index.html', html.serialize())
+                    console.log(require("child_process").execSync("npm run sync").toString("utf-8"));
                 });
             }
         }
