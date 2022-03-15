@@ -1,0 +1,9 @@
+{
+    "name": "Tape",
+    "short_name": "Tape",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/"
+}

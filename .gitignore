@@ -1,5 +1,9 @@
 app/*
-dist/
 !app/polyfills
-node_modules/
+
+dist/*
+!dist/manifest.json
+
 input/app.*
+
+node_modules/
