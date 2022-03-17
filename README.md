@@ -7,13 +7,12 @@ Note that this installation method may yield less features due to the limitation
 3. Run the `tapemobileinstaller` executable inside the folder (this may take a few minutes due to the application needing to extract resources, hence please make sure you have at least 300MBs free on your drive before running the application).
 4. Scroll up on the window of the application, the first few lines of text in the window may look something like this: 
 ```bash
-  <i> [webpack-dev-server] Project is running at:
-  <i> [webpack-dev-server] Loopback: http://localhost:8080/
-  <i> [webpack-dev-server] On Your Network (IPv4): http://192.168.0.23:8080/
-  <i> [webpack-dev-server] Content not from webpack is served from './dist' directory
+Tape served at: https://192.168.0.28:8080/
+Before installation, please install the HTTPS certificate on your device at: https://192.168.0.28:8080/cert.crt
 ```
-5. Please navigate to the URL to the right of `On Your Network (IPv4): ` as seen above on your mobile device using a browser that supports PWAs (Chrome on Android, Safari on iOS, etc.).
-6. Let the webpage load, and install the website as a PWA by tapping on the dots (menu button) on the top left of the browser, and then tapping `Add to Home Screen` (process may be different depending on browser, see [here](https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/))
+5. Download and install the `cert.crt` HTTPS certificate on your device and install it (note that you may have to tell your browser to `Accept the Risk` of accepting the self-signed certificate). Steps for iOS [here](https://apple.stackexchange.com/a/321537). Steps for Android [here](https://httptoolkit.tech/blog/android-11-trust-ca-certificates/#whats-changed).
+6. Please navigate to the URL to the right of `Tape served at: ` as seen above on your mobile device using a browser that supports PWAs (Chrome on Android, Safari on iOS, etc.).
+7. Let the webpage load, and install the website as a PWA by tapping on the dots (menu button) on the top left of the browser, and then tapping `Add to Home Screen` (process may be different depending on browser, see [here](https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/))
 
 
 ## Installation (Natively on Android)
