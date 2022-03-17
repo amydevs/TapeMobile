@@ -37,7 +37,7 @@ const certfile = "cert.crt";
     console.log("serving...")
     const { pem_pkey, pem_cert } = generateCert(addr);
     app.get(`/${certfile}`, (req, res) => { 
-        res.setHeader(`Content-disposition', 'attachment; filename=${certfile}`);
+        res.setHeader('Content-disposition', `attachment; filename=${certfile}`);
         res.setHeader('Content-type', 'application/x-x509-ca-cert');
         res.send(pem_cert);
     })
