@@ -23,11 +23,12 @@ const certfile = "cert.crt";
     const projroot = path.resolve(__dirname, "..")
     const projapppath = path.resolve(projroot, "app")
     const foldhash = (await hashElement(projapppath, hashoptions)).hash;
-    require("../input/extract.js");
+    await require("../input/extract.js");
 
     process.chdir(path.resolve(__dirname, "../"));
     console.log(process.cwd())
     if ((await hashElement(projapppath, hashoptions)).hash !== foldhash) {
+        console.log("compiling")
         const wpout = await util.promisify(webpack)(require('../webpack.config'))
         console.log(wpout.toJson("minimal"))
     }

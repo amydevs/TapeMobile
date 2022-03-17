@@ -2,8 +2,9 @@ const asar = require('asar');
 const path = require('path')
 const fs = require('fs');
 const fse = require('fs-extra');
+const util = require("util")
 
-module.exports = (() => {
+module.exports = (async () => {
     const appoutputpath = path.join(__dirname, '../', 'app')
     const baseinputpath = path.join(process.cwd(), 'input')
     let asarpath = path.join(baseinputpath, 'app.asar')
@@ -15,11 +16,9 @@ module.exports = (() => {
     const extractedpath = path.join(baseinputpath, 'app.extracted')
 
     asar.extractAll(asarpath, extractedpath)
-    fs.readdirSync(path.join(extractedpath, 'app')).forEach((e, i) => {
-        fse.move(path.join(extractedpath, 'app', e), path.join(appoutputpath, e), { overwrite: true }, err => {
-            if (err) return console.error(err)
-        })
-    })
+    for (const e of fs.readdirSync(path.join(extractedpath, 'app'))) {
+        await util.promisify(fse.move)(path.join(extractedpath, 'app', e), path.join(appoutputpath, e), { overwrite: true })
+    }
     console.log('copied over all files')
     return true;
 })()
