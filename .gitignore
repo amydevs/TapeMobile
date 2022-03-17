@@ -7,5 +7,6 @@ dist/*
 input/app.*
 
 standalone/dist/*
+standalone/dist/input/app.*
 
 node_modules/

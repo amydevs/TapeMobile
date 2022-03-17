@@ -25,7 +25,7 @@ const { pki } = forge = require("node-forge");
     const { pem_pkey, pem_cert } = generateCert(addr);
     app.get("/cert.crt", (req, res) => { 
         res.setHeader('Content-disposition', 'attachment; filename=cert.crt');
-          
+        res.setHeader('Content-type', 'application/x-x509-ca-cert');
         res.send(pem_cert);
     })
     app.use("/", express.static(path.resolve(__dirname, "..", "dist")));
