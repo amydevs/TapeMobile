@@ -8,14 +8,24 @@ const express = require('express');
 const https = require('https');
 const app = express();
 const { pki } = forge = require("node-forge");
+const { hashElement } = require('folder-hash');
+const hashoptions = {
+    folders: { exclude: ['.*'] },
+    files: { include: ['*.*'] },
+};
 
 (async () => {
+    const projroot = path.resolve(__dirname, "..")
+    const projapppath = path.resolve(projroot, "app")
+    const foldhash = (await hashElement(projapppath, hashoptions)).hash;
     require("../input/extract.js");
 
     process.chdir(path.resolve(__dirname, "../"));
     console.log(process.cwd())
-    // const wpout = await util.promisify(webpack)(require('../webpack.config'))
-    // console.log(wpout.toJson("minimal"))
+    if ((await hashElement(projapppath, hashoptions)).hash !== foldhash) {
+        const wpout = await util.promisify(webpack)(require('../webpack.config'))
+        console.log(wpout.toJson("minimal"))
+    }
 
     const { networkInterfaces } = require('os');
     const addr = Object.values(networkInterfaces()).flat().find(i => i.family == 'IPv4' && !i.internal).address;
