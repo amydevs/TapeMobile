@@ -1,4 +1,4 @@
-# Aeriform Tape Mobile Port
+# Aeriform Tape Mobile/Web App Port
 
 ## Installation (Progressive Web App on Any Platform (iOS, Android, PC, ChromeOS, etc.))
 Note that this installation method may yield less features due to the limitations of the PWA (Progressive Web App) framework (for example, themes, importing/exporting backups)
