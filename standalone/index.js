@@ -6,6 +6,7 @@ const path = require("path");
 const util = require("util");
 const express = require('express');
 const https = require('https');
+const fs = require('fs');
 
 const { pki } = forge = require("node-forge");
 const { hashElement } = require('folder-hash');
@@ -27,7 +28,7 @@ const certfile = "cert.crt";
 
     process.chdir(path.resolve(__dirname, "../"));
     console.log(process.cwd())
-    if ((await hashElement(projapppath, hashoptions)).hash !== foldhash) {
+    if ((await hashElement(projapppath, hashoptions)).hash !== foldhash && !fs.existsSync(path.resolve(projroot, "dist", "index.html"))) {
         console.log("compiling")
         const wpout = await util.promisify(webpack)(require('../webpack.config'))
         console.log(wpout.toJson("minimal"))
