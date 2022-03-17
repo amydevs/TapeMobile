@@ -6,13 +6,18 @@ const path = require("path");
 const util = require("util");
 const express = require('express');
 const https = require('https');
-const app = express();
+
 const { pki } = forge = require("node-forge");
 const { hashElement } = require('folder-hash');
+const defaultGateway = require("default-gateway");
+const ipaddr = require("ipaddr.js");
+
+const app = express();
 const hashoptions = {
     folders: { exclude: ['.*'] },
     files: { include: ['*.*'] },
 };
+const certfile = "cert.crt";
 
 (async () => {
     const projroot = path.resolve(__dirname, "..")
@@ -27,14 +32,12 @@ const hashoptions = {
         console.log(wpout.toJson("minimal"))
     }
 
-    const { networkInterfaces } = require('os');
-    const addr = Object.values(networkInterfaces()).flat().find(i => i.family == 'IPv4' && !i.internal).address;
+    const addr = await findIp(defaultGateway)
 
     console.log("serving...")
-    console.log(addr)
     const { pem_pkey, pem_cert } = generateCert(addr);
-    app.get("/cert.crt", (req, res) => { 
-        res.setHeader('Content-disposition', 'attachment; filename=cert.crt');
+    app.get(`/${certfile}`, (req, res) => { 
+        res.setHeader(`Content-disposition', 'attachment; filename=${certfile}`);
         res.setHeader('Content-type', 'application/x-x509-ca-cert');
         res.send(pem_cert);
     })
@@ -45,7 +48,8 @@ const hashoptions = {
         key: pem_pkey
     }, app);
     const servecb = () => {
-        console.log(`App served on port: https://${addr}:${server.address().port}/`)
+        console.log(`Tape served at: https://${addr}:${server.address().port}/`)
+        console.log(`Before installation, please install the HTTPS certificate on your device at: https://${addr}:${server.address().port}/${certfile}`)
     }
     try {
         server = server.listen(8080, "0.0.0.0", servecb)
@@ -111,6 +115,28 @@ function generateCert(addr) {
     cert.sign(keys.privateKey);
     const pem_cert = pki.certificateToPem(cert);
     const pem_pkey = pki.privateKeyToPem(keys.privateKey);
-    console.log(pem_cert, pem_pkey)
     return { pem_pkey, pem_cert }
+}
+
+// https://github.com/webpack/webpack-dev-server/blob/dc2d6f77aede59de6a44aa5fa80a91958943b571/lib/Server.js#L320
+async function findIp(gateway) {
+    const { networkInterfaces } = require('os');
+    const gatewayIp = ipaddr.parse((await gateway.v4()).gateway);
+
+    // Look for the matching interface in all local interfaces.
+    for (const addresses of Object.values(networkInterfaces())) {
+      for (const { cidr } of /** @type {NetworkInterfaceInfo[]} */ (
+        addresses
+      )) {
+        const net = ipaddr.parseCIDR(/** @type {string} */ (cidr));
+
+        if (
+          net[0] &&
+          net[0].kind() === gatewayIp.kind() &&
+          gatewayIp.match(net)
+        ) {
+          return net[0].toString();
+        }
+      }
+    }
 }
