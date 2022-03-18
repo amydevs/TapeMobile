@@ -5,7 +5,7 @@ include $(THEOS)/makefiles/common.mk
 
 APPLICATION_NAME = theos
 
-theos_FILES = AppDelegate.swift
+theos_FILES = App/App/AppDelegate.swift
 theos_FRAMEWORKS = UIKit CoreGraphics
 
 include $(THEOS_MAKE_PATH)/application.mk
