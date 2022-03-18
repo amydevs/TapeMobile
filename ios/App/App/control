@@ -1,0 +1,9 @@
+Package: com.yourcompany.theos
+Name: theos
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome application!
+Maintainer: ayanamy
+Author: ayanamy
+Section: Utilities
+Depends: ${LIBSWIFT}
