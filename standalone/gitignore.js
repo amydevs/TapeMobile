@@ -5,6 +5,7 @@ let ignores = ["./node_modules/.bin"]
 
 ignores = ignores.concat(readGitIgnore([".gitignore"]));
 ignores = ignores.concat(readGitIgnore(["android", ".gitignore"]));
+ignores = ignores.concat(readGitIgnore(["ios", ".gitignore"]));
 
 for (const [i, ignore] of ignores.entries()) {
     ignores[i] = `"${ignore}"`
