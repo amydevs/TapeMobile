@@ -27,3 +27,8 @@ Before installation, please install the HTTPS certificate on your device at: htt
 
 ### Note
 If you get errors with `app.asar` not being found, manually locate the `app.asar` file and put it into the `input` folder.
+
+## Compatibility
+Confirmed working with
+- 1.3.8
+- 1.4.0 (Beta)
