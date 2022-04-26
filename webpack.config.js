@@ -58,8 +58,6 @@ const webpackConf = {
         static: './dist',
         hot: process.env.NODE_ENV === "development" ? true : false,
         liveReload: process.env.NODE_ENV === "development" ? true : false,
-        client: process.env.NODE_ENV === "development" ? true : false,
-        webSocketServer: process.env.NODE_ENV === "development" ? true : false,
     },
     plugins: [
         // Expose BrowserFS, process, and Buffer globals.
